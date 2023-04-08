@@ -9,7 +9,8 @@ const connectDb = require('./config/db')
 const app = express()
 dotenv.config()
 
-const userRoutes=require('./routes/userRoutes')
+const userRoutes = require('./routes/userRoutes')
+const blogRoutes = require('./routes/blogRoutes')
 
 connectDb();
 
@@ -17,7 +18,9 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.use('/api/v1/user',userRoutes)
+app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/blog', blogRoutes)
+
 
 const PORT = process.env.PORT || 8080;
 const MODE = process.env.DEV_MODE;

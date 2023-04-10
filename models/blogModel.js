@@ -15,7 +15,7 @@ const blogSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
         require:[true,"userid is required"],
     },
 }, { timestamps: true })

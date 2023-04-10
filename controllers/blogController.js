@@ -66,7 +66,7 @@ exports.createBlogController = async(req, res) => {
 exports.updateBlogController = async (req, res) => {
     try {
         const { id } = req.params;
-        // const { title, description, image } = req.body; 
+        const { title, description, image } = req.body; 
         const blog = await blogModel.findByIdAndUpdate(id, { ...req.body }, { new: true })
         return res.status(200).send({
             success: true,
@@ -84,14 +84,16 @@ exports.updateBlogController = async (req, res) => {
 exports.deleteBlogController =async (req, res) => {
     try {
         const blog=await blogModel.findOneAndDelete(req.params.id).populate("user");
-        await blog.user.pull(blog)
-        await blog.user.save()
+        await blog.User.blogs.pull(blog)
+        await blog.User.save()
+        console.log(blog)
         return res.status(200).send({
             success: true,
-            message: "blog deleted",
+            message:"blog deleted",
         });
     } catch (error) {
         console.log(error)
+        console.log(blog)
         return res.status(500).send({
             success: false,
             message:"error in deleting blogs"
